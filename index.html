@@ -2,411 +2,422 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nayanmoni Khatoniar /// Quant & AI Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nayanmoni Khatoniar - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono:wght@300;400;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- Base & Fonts --- */
+        /* Custom styles not covered directly by Tailwind, or overrides */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #e0e0e0;
-            overflow-x: hidden;
+            font-family: sans-serif; /* You can define a custom font here */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .font-mono { font-family: 'Roboto Mono', monospace; }
-        .font-display { font-family: 'Orbitron', sans-serif; }
 
-        /* --- Animated Background --- */
-        #bg-animation {
+        /* Replicating GlassCard effect with backdrop-filter */
+        .glass-card {
+            background-color: rgba(0, 0, 0, 0.4); /* black/40 */
+            backdrop-filter: blur(12px); /* backdrop-blur-xl */
+            border: 1px solid rgba(71, 85, 105, 0.7); /* slate-800/70 */
+            border-radius: 1rem; /* rounded-2xl */
+            padding: 1.5rem; /* p-6 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition: all 0.3s ease; /* for hover effects */
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 0px 20px rgba(59, 130, 246, 0.25); /* blue-500/25 shadow */
+        }
+
+        /* Specific overrides/adjustments for sections if needed */
+        .project-card:hover .arrow-icon {
+            transform: translateX(5px);
+        }
+
+        /* Basic modal styles - will need JS for open/close */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(-45deg, #0a021a, #000000, #0c1a2e, #000000);
-            background-size: 400% 400%;
-            animation: gradientBG 25s ease infinite;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- Glassmorphism & Neon Effects --- */
-        .glass-card {
-            background: rgba(10, 5, 20, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            border-color: rgba(192, 132, 252, 0.5);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 0 25px rgba(192, 132, 252, 0.2);
-        }
-        .neon-text {
-            text-shadow: 0 0 5px rgba(192, 132, 252, 0.8), 0 0 10px rgba(192, 132, 252, 0.6);
-        }
-        .neon-border {
-            border-bottom: 2px solid #a78bfa;
-            box-shadow: 0 2px 10px -2px #a78bfa;
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-
-        /* --- Animations --- */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .section-content { animation-delay: 0.3s; }
-        .card-1 { animation-delay: 0.4s; }
-        .card-2 { animation-delay: 0.6s; }
-        .card-3 { animation-delay: 0.8s; }
-
-        /* --- Hero Section Typing Animation --- */
-        .typing-container { display: inline-block; }
-        .typed-text {
-            border-right: .15em solid #a78bfa;
-            white-space: nowrap;
-            overflow: hidden;
-            letter-spacing: .1em;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-        }
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #a78bfa; }
-        }
-        
-        /* --- Custom Scrollbar --- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #a78bfa; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
-
-        /* --- Mobile Navigation --- */
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 80px;
-            left: 0;
             right: 0;
-            background: rgba(10, 5, 20, 0.95);
-            z-index: 100;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
             padding: 1rem;
-            border-radius: 0 0 0.5rem 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .mobile-menu.open {
-            display: block;
-        }
-        .mobile-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #e0e0e0;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .mobile-menu a:last-child {
-            border-bottom: none;
-        }
-        .mobile-menu a:hover {
-            color: #a78bfa;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        /* --- Mobile Journey Timeline --- */
-        @media (max-width: 768px) {
-            #journey .relative.flex {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 2rem;
-            }
-            #journey .w-5\/12 {
-                width: 100% !important;
-                margin-bottom: 1rem;
-            }
-            #journey .absolute.left-1\/2 {
-                left: 16px !important;
-                transform: none !important;
-            }
-            #journey .bg-violet-500 {
-                left: 12px !important;
-            }
-            #journey .text-right {
-                text-align: left !important;
-            }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* --- Responsive Typography --- */
-        @media (max-width: 640px) {
-            .font-display {
-                font-size: 2.5rem !important;
-                line-height: 1.2 !important;
-            }
-            .typed-text {
-                font-size: 1rem !important;
-                white-space: normal;
-                border-right: none;
-                animation: none;
-            }
+        .modal-content {
+            background-color: #111111;
+            border: 1px solid #475569; /* slate-700 */
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 48rem; /* max-w-2xl */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
         }
 
-        /* --- Button Stacking on Mobile --- */
-        @media (max-width: 480px) {
-            #contact .flex {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            #contact a {
-                width: 100%;
-                justify-content: center;
-            }
+        .modal-overlay.open .modal-content {
+            transform: translateY(0);
         }
+
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-[#0A0A0A] text-slate-300">
+    <div class="min-h-screen max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 lg:sticky lg:top-8 space-y-6 h-full">
 
-    <div id="bg-animation"></div>
+                <div class="glass-card text-center">
+                    <img
+                        src="https://placehold.co/128x128/1e293b/e2e8f0?text=NK"
+                        alt="Nayanmoni Khatoniar"
+                        class="w-28 h-28 rounded-full mx-auto mb-4 border-2 border-blue-500/50"
+                    />
+                    <h1 class="text-2xl font-bold text-white">Nayanmoni Khatoniar</h1>
+                    <p class="text-blue-400 mt-1">Chemical Engineering Student</p>
+                    <p class="text-sm text-slate-400 mt-2">AI/ML & LLM Enthusiast</p>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-card mx-4 md:mx-auto mt-4 max-w-4xl rounded-lg border-0">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="font-display text-xl font-bold text-white neon-text">NK</a>
-            <div class="hidden md:flex space-x-8 font-mono text-sm" id="desktop-nav">
-                <a href="#about" class="hover:text-violet-300 transition-colors">About</a>
-                <a href="#journey" class="hover:text-violet-300 transition-colors">Journey</a>
-                <a href="#skills" class="hover:text-violet-300 transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-violet-300 transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-violet-300 transition-colors">Contact</a>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <a href="https://github.com/NayanmoniKhatoniar" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors hover:scale-125">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1 1.7 4.1 4.9L16 22H8c-.8 0-1.2-.4-1.2-.9V14c0-2.2-.4-3.5-2.6-4.7A4.8 4.8 0 0 1 2 8a4.8 4.8 0 0 1 2.2-4.1C4.4 3.7 4.8 3.5 5 3.5c.3 0 .7.1 1.1.3 1.2.6 2 1.4 2.8 2.6L12 8l.2.2c.7.8 1.5 1.6 2.8 2.6.4-.2.8-.3 1.1-.3.2 0 .6.2.9.4A4.8 4.8 0 0 1 22 8a4.8 4.8 0 0 1-2.2 4.1C18.4 13.3 18 14.6 18 16.8V22"></path><circle cx="12" cy="5" r="3"></circle></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nayanmoni-khatoniar-9370432aa/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white transition-colors hover:scale-125">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        </a>
+                    </div>
+                    <a
+                        href="#"
+                        onclick="alert('CV download functionality is a placeholder. In a real scenario, this would link to a PDF or trigger a download.')"
+                        class="mt-6 w-full bg-blue-600/80 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Download CV
+                    </a>
+                </div>
+
+                <div class="glass-card !p-4">
+                    <nav class="space-y-2">
+                        <a href="#about" class="block text-slate-300 hover:text-blue-400 font-medium p-3 rounded-lg hover:bg-slate-800/50 transition-all duration-200">
+                            About
+                        </a>
+                        <a href="#skills" class="block text-slate-300 hover:text-blue-400 font-medium p-3 rounded-lg hover:bg-slate-800/50 transition-all duration-200">
+                            Skills
+                        </a>
+                        <a href="#projects" class="block text-slate-300 hover:text-blue-400 font-medium p-3 rounded-lg hover:bg-slate-800/50 transition-all duration-200">
+                            Projects
+                        </a>
+                        <a href="#education" class="block text-slate-300 hover:text-blue-400 font-medium p-3 rounded-lg hover:bg-slate-800/50 transition-all duration-200">
+                            Education
+                        </a>
+                    </nav>
+                </div>
+
+                <div class="glass-card">
+                    <div class="flex items-center mb-4">
+                        <svg role="img" width="24" height="24" viewBox="0 0 24 24" fill="#1DB954" class="mr-3"><path d="M12 2.00001C6.486 2.00001 2 6.48601 2 12.00001C2 17.514 6.486 22.00001 12 22.00001C17.514 22.00001 22 17.514 22 12.00001C22 6.48601 17.514 2.00001 12 2.00001ZM16.852 17.653C16.621 17.921 16.255 18.016 15.987 17.785C13.194 15.899 9.633 15.588 5.794 16.541C5.484 16.622 5.174 16.419 5.093 16.109C5.012 15.799 5.215 15.489 5.525 15.408C9.773 14.364 13.733 14.715 16.864 16.828C17.132 17.059 17.227 17.425 16.996 17.693L16.852 17.653ZM18.221 14.316C17.911 14.646 17.445 14.741 17.115 14.53C13.984 12.434 9.034 11.984 5.394 13.097C5.024 13.208 4.634 12.977 4.523 12.607C4.412 12.237 4.643 11.847 5.013 11.736C9.144 10.513 14.584 11.013 18.194 13.406C18.524 13.617 18.619 14.076 18.408 14.406L18.221 14.316ZM19.785 10.84C16.929 8.53201 9.92901 8.36501 5.74401 9.53901C5.29901 9.66201 4.85401 9.38901 4.73101 8.94401C4.60801 8.49901 4.88101 8.05401 5.32601 7.93101C10.034 6.63001 17.714 6.81601 21.054 9.58101C21.45 9.88101 21.545 10.426 21.245 10.821C20.945 11.216 20.4 11.311 20.005 11.011L19.785 10.84Z"></path></svg>
+                        <h3 class="font-bold text-white">Spotify</h3>
+                    </div>
+                    <p class="text-sm text-slate-400">Not Playing</p>
+                    <div class="w-full bg-slate-700 rounded-full h-1 mt-2">
+                        <div class="bg-slate-500 h-1 rounded-full" style="width: 0%;"></div>
+                    </div>
+                </div>
+
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-        </div>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="mobile-menu font-mono text-sm">
-        <a href="#about" class="hover:text-violet-300 transition-colors">About</a>
-        <a href="#journey" class="hover:text-violet-300 transition-colors">Journey</a>
-        <a href="#skills" class="hover:text-violet-300 transition-colors">Skills</a>
-        <a href="#projects" class="hover:text-violet-300 transition-colors">Projects</a>
-        <a href="#contact" class="hover:text-violet-300 transition-colors">Contact</a>
+            <div class="lg:col-span-2 space-y-6">
+
+                <section id="about" class="scroll-mt-20">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase text-blue-400"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <h2 class="text-xl font-bold text-white ml-3">About Me</h2>
+                    </div>
+                    <div class="glass-card !p-0 !border-0">
+                        <div class="p-6 space-y-4">
+                            <p>I am a second-year Chemical Engineering undergraduate with a profound fascination for the digital world. My passion lies at the intersection of technology and complex problem-solving, particularly in the realms of Artificial Intelligence and Machine Learning.</p>
+                            <p>My journey started with a curiosity about how data could predict real-world phenomena, leading me to explore Python and ML fundamentals. Now, I'm captivated by Large Language Models (LLMs) and actively learning to build and fine-tune these systems.</p>
+                            <p>To round out my skillset, I've begun my journey into web development, aiming to master frameworks like React to build intuitive interfaces for powerful technologies.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="skills" class="scroll-mt-20">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code text-blue-400"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <h2 class="text-xl font-bold text-white ml-3">Skills & Technologies</h2>
+                    </div>
+                    <div class="glass-card">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="font-semibold text-blue-400 mb-3">AI/ML & Data Science</h3>
+                                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M12 21.9999C12 18.4999 14.5 15.9999 18 15.9999H20C20.5523 15.9999 21 15.5522 21 14.9999V11.9999C21 8.49993 18.5 5.99993 15 5.99993H9C5.5 5.99993 3 8.49993 3 11.9999V12.9999C3 13.5522 3.44772 13.9999 4 13.9999H12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2.00007C12 5.50007 9.5 8.00007 6 8.00007H4C3.44772 8.00007 3 8.44778 3 9.00007V12.0001C3 15.5001 5.5 18.0001 9 18.0001H15C18.5 18.0001 21 15.5001 21 12.0001V11.0001C21 10.4478 20.5523 10.0001 20 10.0001H12" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="14.5" r="1.5" fill="#3b82f6"/><circle cx="16.5" cy="9.5" r="1.5" fill="#facc15"/></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">Python</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code w-full h-full text-orange-500"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">TensorFlow</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code w-full h-full text-red-500"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">PyTorch</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-blue-400 mb-3">Web Development</h3>
+                                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="-11.5 -10.23174 23 20.46348" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><circle r="2.05" fill="#61DAFB"/><g stroke="#61DAFB" stroke-width="1"><ellipse rx="11" ry="4.2"/><ellipse rx="11" ry="4.2" transform="rotate(60)"/><ellipse rx="11" ry="4.2" transform="rotate(120)"/></g></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">React</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C13.4876 3 14.893 3.3423 16.1421 3.94952" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 12H8" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 12H12" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 16H9" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8H15" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">JavaScript</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">Tailwind</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M4 3L5.77778 20.0899L12 22L18.2222 20.0899L20 3H4Z" stroke="#f16529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7H7L7.5 12H16.5L16 17L12 18L8 17L7.5 14" stroke="#ebebeb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">HTML5</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M4 3L5.77778 20.0899L12 22L18.2222 20.0899L20 3H4Z" stroke="#2965f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 7H8L8.5 12H15.5L15 17L12 16L9 17L8.5 14" stroke="#ebebeb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        </div>
+                                        <span class="text-xs font-medium text-slate-300">CSS3</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-blue-400 mb-3">Core Domain</h3>
+                                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical w-full h-full text-teal-400"><path d="M10 16.5L12 7l-2 3H6.5L12 2l7 10h-5.5l-2 3"/><path d="M14 11v6.5a3.5 3.5 0 1 1-7 0V11"/><path d="M10 22h4"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">Process Sim</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical w-full h-full text-teal-400"><path d="M10 16.5L12 7l-2 3H6.5L12 2l7 10h-5.5l-2 3"/><path d="M14 11v6.5a3.5 3.5 0 1 1-7 0V11"/><path d="M10 22h4"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">Thermo</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-blue-400 mb-3">Tools</h3>
+                                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-branch w-full h-full text-orange-600"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9v12"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">Git</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github w-full h-full text-slate-300"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1 1.7 4.1 4.9L16 22H8c-.8 0-1.2-.4-1.2-.9V14c0-2.2-.4-3.5-2.6-4.7A4.8 4.8 0 0 1 2 8a4.8 4.8 0 0 1 2.2-4.1C4.4 3.7 4.8 3.5 5 3.5c.3 0 .7.1 1.1.3 1.2.6 2 1.4 2.8 2.6L12 8l.2.2c.7.8 1.5 1.6 2.8 2.6.4-.2.8-.3 1.1-.3.2 0 .6.2.9.4A4.8 4.8 0 0 1 22 8a4.8 4.8 0 0 1-2.2 4.1C18.4 13.3 18 14.6 18 16.8V22"></path><circle cx="12" cy="5" r="3"></circle></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">GitHub</span>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-2 p-3 bg-slate-800/50 rounded-lg transition-all duration-300 hover:bg-slate-700/80">
+                                        <div class="w-8 h-8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code w-full h-full text-blue-500"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                                        <span class="text-xs font-medium text-slate-300">VS Code</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="scroll-mt-20">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase text-blue-400"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        <h2 class="text-xl font-bold text-white ml-3">Featured Projects</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="glass-card !p-4 cursor-pointer project-card" data-project-id="1">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-slate-800/80 p-3 rounded-lg text-blue-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical"><path d="M10 16.5L12 7l-2 3H6.5L12 2l7 10h-5.5l-2 3"/><path d="M14 11v6.5a3.5 3.5 0 1 1-7 0V11"/><path d="M10 22h4"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-white">ChemFlow AI: Process Simulator</h3>
+                                    <p class="text-sm text-slate-400 line-clamp-1">An AI-powered simulation tool that predicts chemical reaction outcomes using a neural network trained on historical process data, aiming to reduce lab experimentation time.</p>
+                                </div>
+                                <div class="text-slate-500 arrow-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card !p-4 cursor-pointer project-card" data-project-id="2">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-slate-800/80 p-3 rounded-lg text-blue-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><rect width="16" height="16" x="4" y="4" rx="2" ry="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 15h3"/><path d="M1 9h3"/><path d="M1 15h3"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-white">CogniChat: The ChemE LLM</h3>
+                                    <p class="text-sm text-slate-400 line-clamp-1">A fine-tuned Large Language Model (LLM) designed as a knowledgeable assistant for chemical engineering students, trained on textbooks and research papers.</p>
+                                </div>
+                                <div class="text-slate-500 arrow-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card !p-4 cursor-pointer project-card" data-project-id="3">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-slate-800/80 p-3 rounded-lg text-blue-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-branch"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9v12"/></svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-bold text-white">Portfolio v2 (React)</h3>
+                                    <p class="text-sm text-slate-400 line-clamp-1">My digital resume and project showcase. Built with React, Tailwind CSS, and Framer Motion to practice modern web development and create a central hub for my professional identity.</p>
+                                </div>
+                                <div class="text-slate-500 arrow-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="education" class="scroll-mt-20">
+                    <div class="flex items-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap text-blue-400"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M10 15.5l4-2.5"/></svg>
+                        <h2 class="text-xl font-bold text-white ml-3">Education</h2>
+                    </div>
+                    <div class="glass-card">
+                        <h3 class="font-bold text-white">Bachelor of Technology in Chemical Engineering</h3>
+                        <p class="text-blue-400">Golaghat Engineering College, Assam</p>
+                        <p class="text-sm text-slate-400">Expected Graduation: 2028</p>
+                    </div>
+                </section>
+
+                <footer class="text-center text-slate-500 py-6">
+                    <p>&copy; <span id="current-year"></span> Nayanmoni Khatoniar. Built with HTML & Tailwind CSS (and a touch of JS).</p>
+                </footer>
+
+            </div>
+        </main>
+
+        <div id="project-modal" class="modal-overlay">
+            <div class="modal-content" id="modal-content">
+                <div class="relative">
+                    <img id="modal-image" src="" alt="Project Image" class="w-full h-48 sm:h-56 object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <h2 id="modal-title" class="absolute bottom-4 left-6 text-xl sm:text-2xl font-bold text-white"></h2>
+                </div>
+                <div class="p-6">
+                    <p id="modal-description" class="text-slate-300 mb-4"></p>
+                    <div id="modal-tags" class="flex flex-wrap gap-2 mb-6">
+                        </div>
+                    <a
+                        id="modal-github-link"
+                        href="https://github.com/NayanmoniKhatoniar"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-102 active:scale-98"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github mr-2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3.5 0 4.1 1.7 4.1 4.9L16 22H8c-.8 0-1.2-.4-1.2-.9V14c0-2.2-.4-3.5-2.6-4.7A4.8 4.8 0 0 1 2 8a4.8 4.8 0 0 1 2.2-4.1C4.4 3.7 4.8 3.5 5 3.5c.3 0 .7.1 1.1.3 1.2.6 2 1.4 2.8 2.6L12 8l.2.2c.7.8 1.5 1.6 2.8 2.6.4-.2.8-.3 1.1-.3.2 0 .6.2.9.4A4.8 4.8 0 0 1 22 8a4.8 4.8 0 0 1-2.2 4.1C18.4 13.3 18 14.6 18 16.8V22"></path><circle cx="12" cy="5" r="3"></circle></svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="min-h-screen flex items-center justify-center text-center relative overflow-hidden pt-16">
-        <div class="absolute inset-0 bg-black opacity-50"></div>
-        <div class="z-10 max-w-4xl mx-auto px-4">
-            <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white neon-text tracking-wider px-4">NAYANMONI KHATONIAR</h1>
-            <div class="mt-4 text-lg md:text-xl text-violet-300 font-mono typing-container px-4">
-                <p class="typed-text">Quant Explorer & AI Enthusiast</p>
-            </div>
-            <p class="mt-6 max-w-2xl mx-auto text-base md:text-lg text-slate-300 px-4">
-                A Chemical Engineering student charting a course through the complex worlds of financial markets and artificial intelligence.
-            </p>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 sm:px-6 py-16 md:py-24 space-y-24 md:space-y-32">
-
-        <!-- About Section -->
-        <section id="about" class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-center fade-in-up">
-            <div class="md:col-span-2">
-                <div class="p-1.5 rounded-lg glass-card">
-                    <img src="profile.jpg" alt="Nayanmoni Khatoniar" class="rounded-lg w-full h-auto">              </div>
-            </div>
-            <div class="md:col-span-3 section-content">
-                <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-6 neon-border">About Me</h2>
-                <p class="text-slate-300 mb-4 text-sm sm:text-base">
-                    Hello! I'm a second-year Chemical Engineering undergraduate with a relentless curiosity for systems, patterns, and optimization. While my academic foundation is in process engineering and thermodynamics, my passion lies in the digital realm of quantitative finance and AI.
-                </p>
-                <p class="text-slate-300 mb-4 text-sm sm:text-base">
-                    I see financial markets as the ultimate complex system, a perfect challenge for the analytical and modeling skills I've honed in my engineering studies. I'm on a self-driven mission to merge these two fields, applying machine learning and computational statistics to decode market behavior.
-                </p>
-            </div>
-        </section>
-        
-        <!-- Journey Section -->
-        <section id="journey" class="fade-in-up px-2">
-            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 neon-border">My Journey</h2>
-            <div class="relative max-w-4xl mx-auto">
-                <!-- Vertical line -->
-                <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-violet-900 md:-translate-x-1/2"></div>
-                
-                <!-- Item 1 -->
-                <div class="relative flex flex-col md:flex-row justify-between items-center w-full mb-8 sm:mb-12">
-                    <div class="w-full md:w-5/12 mb-4 md:mb-0 md:text-right">
-                        <div class="glass-card p-4 rounded-lg">
-                            <h3 class="font-bold text-violet-300">Foundation</h3>
-                            <p class="text-xs sm:text-sm text-slate-400">Building analytical rigor & a problem-solving mindset through Chemical Engineering.</p>
-                        </div>
-                    </div>
-                    <div class="absolute bg-violet-500 rounded-full w-3 h-3 sm:w-4 sm:h-4 z-10 left-4 md:left-1/2 top-6 md:top-1/2 md:-translate-x-1/2"></div>
-                    <div class="w-full md:w-5/12"></div>
-                </div>
-                
-                <!-- Item 2 -->
-                <div class="relative flex flex-col md:flex-row justify-between items-center w-full mb-8 sm:mb-12">
-                    <div class="w-full md:w-5/12 order-2 md:order-1"></div>
-                    <div class="absolute bg-violet-500 rounded-full w-3 h-3 sm:w-4 sm:h-4 z-10 left-4 md:left-1/2 top-6 md:top-1/2 md:-translate-x-1/2"></div>
-                    <div class="w-full md:w-5/12 mb-4 md:mb-0 order-1 md:order-2">
-                        <div class="glass-card p-4 rounded-lg">
-                            <h3 class="font-bold text-violet-300">Ignition</h3>
-                            <p class="text-xs sm:text-sm text-slate-400">Discovering the intersection of code, data, and finance. The quant world became my obsession.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Item 3 -->
-                <div class="relative flex flex-col md:flex-row justify-between items-center w-full">
-                    <div class="w-full md:w-5/12 mb-4 md:mb-0 md:text-right">
-                        <div class="glass-card p-4 rounded-lg">
-                            <h3 class="font-bold text-violet-300">Exploration</h3>
-                            <p class="text-xs sm:text-sm text-slate-400">Diving deep into ML frameworks, trading algorithms, and building personal projects.</p>
-                        </div>
-                    </div>
-                    <div class="absolute bg-violet-500 rounded-full w-3 h-3 sm:w-4 sm:h-4 z-10 left-4 md:left-1/2 top-6 md:top-1/2 md:-translate-x-1/2"></div>
-                    <div class="w-full md:w-5/12"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="fade-in-up">
-            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 neon-border">Technical Arsenal</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 section-content">
-                <div class="glass-card p-4 sm:p-6 rounded-lg card-1">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-3 sm:mb-4">Core Engineering</h3>
-                    <ul class="space-y-1 sm:space-y-2 font-mono text-xs sm:text-sm text-slate-300">
-                        <li><span class="text-green-400 mr-2">>></span>Process Optimization</li>
-                        <li><span class="text-green-400 mr-2">>></span>Mathematical Modeling</li>
-                        <li><span class="text-green-400 mr-2">>></span>Statistical Analysis</li>
-                    </ul>
-                </div>
-                <div class="glass-card p-4 sm:p-6 rounded-lg card-2">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-3 sm:mb-4">Languages & Tech</h3>
-                    <ul class="space-y-1 sm:space-y-2 font-mono text-xs sm:text-sm text-slate-300">
-                        <li><span class="text-green-400 mr-2">>></span>Python, C++, SQL</li>
-                        <li><span class="text-green-400 mr-2">>></span>Pandas, NumPy, SciPy</li>
-                        <li><span class="text-green-400 mr-2">>></span>Git & Docker</li>
-                    </ul>
-                </div>
-                <div class="glass-card p-4 sm:p-6 rounded-lg card-3">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-3 sm:mb-4">AI / ML</h3>
-                    <ul class="space-y-1 sm:space-y-2 font-mono text-xs sm:text-sm text-slate-300">
-                        <li><span class="text-green-400 mr-2">>></span>PyTorch & TensorFlow</li>
-                        <li><span class="text-green-400 mr-2">>></span>Time Series Forecasting</li>
-                        <li><span class="text-green-400 mr-2">>></span>Reinforcement Learning</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="fade-in-up">
-            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 neon-border">Project Blueprints</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 section-content">
-                <div class="glass-card rounded-lg p-4 sm:p-6 flex flex-col card-1">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-2 sm:mb-3">Project Quasar</h3>
-                    <p class="text-xs sm:text-sm text-slate-400">Developing a crypto arbitrage bot using co-integration and ML models to capitalize on market inefficiencies.</p>
-                </div>
-                <div class="glass-card rounded-lg p-4 sm:p-6 flex flex-col card-2">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-2 sm:mb-3">DeepAlpha</h3>
-                    <p class="text-xs sm:text-sm text-slate-400">Training a Reinforcement Learning agent to perform dynamic portfolio optimization for superior risk-adjusted returns.</p>
-                </div>
-                <div class="glass-card rounded-lg p-4 sm:p-6 flex flex-col card-3">
-                    <h3 class="text-lg sm:text-xl font-bold text-violet-300 mb-2 sm:mb-3">MarketSentiment-GPT</h3>
-                    <p class="text-xs sm:text-sm text-slate-400">Using LLMs to parse news and social media, generating real-time sentiment scores to predict market shifts.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="text-center fade-in-up px-2">
-            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-6 neon-border">Connect</h2>
-            <p class="max-w-xl mx-auto text-sm sm:text-base text-slate-300 mb-6 sm:mb-8">
-                Always open to new ideas, collaborations, or just a chat about markets and models. Let's connect.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <a href="https://github.com/NayanmoniKhatoniar" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-lg font-bold text-white bg-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:bg-gray-700 w-full sm:w-auto">
-                    <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-gray-600 rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                    <span class="relative">GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/nayanmoni-khatoniar-9370432aa/" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-lg font-bold text-white bg-violet-800 rounded-lg overflow-hidden transition-all duration-300 hover:bg-violet-700 w-full sm:w-auto">
-                    <span class="absolute w-0 h-0 transition-all duration-300 ease-out bg-violet-600 rounded-full group-hover:w-32 group-hover:h-32 opacity-10"></span>
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    <span class="relative">LinkedIn</span>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="mt-12 sm:mt-20 border-t border-gray-800">
-        <div class="container mx-auto px-6 py-4 sm:py-6 text-center text-xs sm:text-sm text-slate-500 font-mono">
-            <p>&copy; 2024 Nayanmoni Khatoniar /// System Online</p>
-            <p class="mt-1 sm:mt-2 text-violet-400">"The future is already here – it's just not evenly distributed."</p>
-        </div>
-    </footer>
-
     <script>
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-up-active');
+        // Get the current year for the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Project data (moved from React)
+        const projectsData = [
+            { id: 1, title: "ChemFlow AI: Process Simulator", description: "An AI-powered simulation tool that predicts chemical reaction outcomes using a neural network trained on historical process data, aiming to reduce lab experimentation time.", tags: ["Python", "TensorFlow", "Scikit-learn", "Streamlit"], image: "https://placehold.co/600x400/1e293b/38bdf8?text=ChemFlow+AI" },
+            { id: 2, title: "CogniChat: The ChemE LLM", description: "A fine-tuned Large Language Model (LLM) designed as a knowledgeable assistant for chemical engineering students, trained on textbooks and research papers.", tags: ["Python", "PyTorch", "Hugging Face", "LLM"], image: "https://placehold.co/600x400/1e293b/38bdf8?text=CogniChat" },
+            { id: 3, title: "Portfolio v2 (React)", description: "My digital resume and project showcase. Built with React, Tailwind CSS, and Framer Motion to practice modern web development and create a central hub for my professional identity.", tags: ["React", "Tailwind CSS", "Framer Motion"], image: "https://placehold.co/600x400/1e293b/38bdf8?text=Portfolio+v2" },
+        ];
+
+        // Get modal elements
+        const projectModal = document.getElementById('project-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-description');
+        const modalTags = document.getElementById('modal-tags');
+        const modalGithubLink = document.getElementById('modal-github-link');
+        const modalContent = document.getElementById('modal-content');
+
+        // Function to open the modal
+        function openProjectModal(project) {
+            modalImage.src = project.image;
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            modalGithubLink.href = "https://github.com/NayanmoniKhatoniar"; // This link is static as per your React code
+
+            // Clear previous tags
+            modalTags.innerHTML = '';
+            // Add new tags
+            project.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = "bg-blue-500/10 text-blue-400 text-xs font-medium px-3 py-1 rounded-full";
+                span.textContent = tag;
+                modalTags.appendChild(span);
+            });
+
+            projectModal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        }
+
+        // Function to close the modal
+        function closeProjectModal() {
+            projectModal.classList.remove('open');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Add click listeners to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', (event) => {
+                const projectId = parseInt(card.dataset.projectId);
+                const project = projectsData.find(p => p.id === projectId);
+                if (project) {
+                    openProjectModal(project);
                 }
             });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
         });
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
+        // Close modal when clicking outside content or pressing ESC
+        projectModal.addEventListener('click', (event) => {
+            if (!modalContent.contains(event.target)) {
+                closeProjectModal();
+            }
         });
 
-        // Close mobile menu when clicking a link
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
-                mobileMenu.classList.remove('open');
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && projectModal.classList.contains('open')) {
+                closeProjectModal();
             }
         });
     </script>
-
 </body>
 </html>
